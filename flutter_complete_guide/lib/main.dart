@@ -6,14 +6,28 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  void answerQuestion() {
-    questionIndex = questionIndex + 1;
+class MyApp extends StatefulWidget {
+
+  //ghi đè
+  @override
+  // Khai báo State con để kết nối 2 State
+  State<StatefulWidget> createState() {
+    return _MyAppState();
   }
+}
+
+class _MyAppState extends State<MyApp> { 
+  // State<MyApp> để khai báo rằng MyAppState là State con của MyApp
 
   var name = 'Hoang Long';
 
-  var questionIndex = 0;
+  var _questionIndex = 0;
+
+  void _answerQuestion() {
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +42,10 @@ class MyApp extends StatelessWidget {
           title: Text('My first App'),
         ),
         body: Column(children: [
-          Text(questions.elementAt(0)),
-          Text(questions[questionIndex]),
+          Text(questions[_questionIndex]),
           ElevatedButton(
             child: Text(name),
-            onPressed: answerQuestion,
+            onPressed: _answerQuestion,
           ),
           ElevatedButton(
             child: Text('Answer 2'),
@@ -40,7 +53,6 @@ class MyApp extends StatelessWidget {
             // anonymount function (Chức năng ẩn danh)
             onPressed: () {
               this.name = 'Ngoc Ha';
-              print('Hello World');
             },
           ),
           ElevatedButton(
