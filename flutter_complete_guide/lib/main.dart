@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/answer.dart';
+
+import './qustion.dart';
+import './answer.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -7,7 +11,6 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-
   //ghi đè
   @override
   // Khai báo State con để kết nối 2 State
@@ -16,7 +19,7 @@ class MyApp extends StatefulWidget {
   }
 }
 
-class _MyAppState extends State<MyApp> { 
+class _MyAppState extends State<MyApp> {
   // State<MyApp> để khai báo rằng MyAppState là State con của MyApp
 
   var name = 'Hoang Long';
@@ -32,34 +35,37 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     // List
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?',
+    const questions = [
+      {
+        'questionText': 'What\'s your favorite color?',
+        'answers': ['Black', 'Red', 'Green', 'White']
+      },
+      {
+        'questionText': 'What\'s your favorite animal?',
+        'answers': ['Cat', 'Dog', 'Bird', 'Rabbit']
+      },
+      {
+        'questionText': 'What\'s your favorite instructor?',
+        'answers': ['Max', 'Min', 'Mux', 'Mox']
+      }
     ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('My first App'),
+          backgroundColor: Color(0xFFFF9000),
         ),
-        body: Column(children: [
-          Text(questions[_questionIndex]),
-          ElevatedButton(
-            child: Text(name),
-            onPressed: _answerQuestion,
-          ),
-          ElevatedButton(
-            child: Text('Answer 2'),
-
-            // anonymount function (Chức năng ẩn danh)
-            onPressed: () {
-              this.name = 'Ngoc Ha';
-            },
-          ),
-          ElevatedButton(
-            child: Text('Answer 3'),
-            onPressed: () => print('123'),
-          ),
-        ]),
+        body: Column(
+          children: [
+            Question(
+              questions[_questionIndex]['questionText'] as String,
+            ),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+            .map((answer) {
+              return Answer(_answerQuestion, answer);
+            })
+          ],
+        ),
       ),
     );
   }
