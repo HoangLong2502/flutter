@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
@@ -19,8 +21,7 @@ class Answer extends StatelessWidget {
           )),
           backgroundColor: MaterialStateProperty.all(Colors.blue[800]),
           textStyle: MaterialStateProperty.all(
-            TextStyle(color: Color(0xFF42A5F5), fontSize: 18)
-          ),
+              TextStyle(color: Color(0xFF42A5F5), fontSize: 18)),
         ),
         child: Text(answerText),
         onPressed: () {
